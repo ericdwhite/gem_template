@@ -1,0 +1,7 @@
+This project creates a sample Gem that
+uses RSpec and Flex Mock for testing.
+
+For more details see: http://blog.ericwhite.ca/
+
+The paths and items that should be changed can
+be found using changeme.rb in the project root.

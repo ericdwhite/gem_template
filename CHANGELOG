@@ -1,0 +1,5 @@
+*0.0.1 (October 10, 2009)*
+
+* Initial version with only the skeleton of the library, but it
+  does demonstrate the library working with RSpec by verifying
+  the libraries version number.

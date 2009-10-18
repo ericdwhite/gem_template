@@ -1,3 +1,9 @@
+*0.0.2 (October 18, 2009)*
+
+* This version includes support for the use of Flex Mock
+  in RSpec specifications.  It also includes one specification
+  demonstrating the use of Flex Mock with RSpec.
+
 *0.0.1 (October 10, 2009)*
 
 * Initial version with only the skeleton of the library, but it

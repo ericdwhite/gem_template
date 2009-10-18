@@ -9,7 +9,7 @@ end
 #
 # Gem Packaging
 require 'rake/gempackagetask'
-gem_spec = eval(File.read('gemspec'))
+gem_spec = eval(File.read('gtemplate.gemspec'))
 Rake::GemPackageTask.new(gem_spec) do |p|
   p.gem_spec = gem_spec
   p.need_tar = true

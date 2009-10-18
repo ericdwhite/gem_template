@@ -20,4 +20,5 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   s.add_dependency('rspec', '~> 1.2.9')
+  s.add_dependency('flexmock', '~> 0.8.6')
 end

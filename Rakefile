@@ -18,9 +18,22 @@ end
 
 #
 # Gem Management
+
+# To explictly install in the system gem cache use:
+# $ sudo rake <command>
+#
+# This will only add 'sudo' if no writable Gem paths are found.
+def gem_cmd
+  @gem_cmd ||= begin    
+                 gem_cmd = Gem.platforms.last.os == "java" ? 'jgem' : 'gem'
+                 return gem_cmd if Gem.win_platform?
+                 gem_cmd = Gem.path.find { |p| File.writable? p } ? gem_cmd : "sudo #{gem_cmd}"
+               end
+end
+
 desc "Install the created gem."
 task :install => :gem do
-  system("gem install pkg/#{gem_spec.name}-#{gem_spec.version}.gem")
+  system("#{gem_cmd} install pkg/#{gem_spec.name}-#{gem_spec.version}.gem")
 end
 
 desc "Uninstall the gem."
@@ -31,12 +44,15 @@ task :uninstall do
   # are located in ~/.gem which happens to be the
   # second path.  This bit of code tries
   # to remove the gem from ALL the gem paths.
-  require 'yaml'
-  gem_env = YAML::parse(`gem environment`)
-  gem_env.select('/RubyGems Environment/*/GEM PATHS/*').each do |path|
-    gems_path = path.value
-    puts "Trying to remove gem from path: #{gems_path}"
-    system("gem uninstall #{gem_spec.name} --version '=#{gem_spec.version}' --install-dir=#{gems_path}")
+  #
+  # To remove system gems as well as local gems use:
+  #
+  # $ sudo rake uninstall
+  #
+  "Using gem command: #{gem_cmd}"
+  Gem.path.each do |gem_path|
+    puts "Trying to remove gem from path: #{gem_path}"
+    system("#{gem_cmd} uninstall #{gem_spec.name} --version '=#{gem_spec.version}' --install-dir=#{gem_path}")
   end
 end
 
